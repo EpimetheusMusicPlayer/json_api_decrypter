@@ -6,18 +6,19 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.13.0 <3.0.0"
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
 
 dependencies:
   flutter:
     sdk: flutter
   iapetus:
     git:
-      url: 'git://github.com/EpimetheusMusicPlayer/Iapetus.git'
-      ref: '6a4a7e0cda84895765b970c3f90f13bbec2d97c4'
+      url: 'https://github.com/EpimetheusMusicPlayer/iapetus.git'
+      ref: 'a978d5c161481a8103fafcb0728dcaef5aa90c9f'
 
 dev_dependencies:
-  lint: ^1.5.3
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

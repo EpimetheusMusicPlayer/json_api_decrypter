@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:iapetus/iapetus.dart';
@@ -9,24 +8,29 @@ import 'package:iapetus/iapetus_data.dart';
 void main() => runApp(const App());
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      const MaterialApp(home: DecrypterScreen());
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DecrypterScreen(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+    );
+  }
 }
 
 class DecrypterScreen extends StatefulWidget {
-  const DecrypterScreen({Key? key}) : super(key: key);
+  const DecrypterScreen({super.key});
 
   @override
-  _DecrypterScreenState createState() => _DecrypterScreenState();
+  State<DecrypterScreen> createState() => _DecrypterScreenState();
 }
 
 class _DecrypterScreenState extends State<DecrypterScreen> {
   static const _partners = [
     androidPartner,
-    androidLegacyPartner,
+    androidLegacyPartner, // ignore: deprecated_member_use
     iosPartner,
     palmPartner,
     windowsMobilePartner,
@@ -99,76 +103,70 @@ class _DecrypterScreenState extends State<DecrypterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: const Text('Pandora JSON API Decrypter by hacker1024')),
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: ListView(
-          padding: const EdgeInsets.all(8),
-          children: [
-            _ModeSelector(
-              partners: _partners,
-              selectedPartner: _selectedPartner,
-              request: _request,
-              removeBoilerplate: _removeBoilerplate,
-              onPartnerSelection: (partner) => setState(() {
-                _selectedPartner = partner;
-                _updateDecrypter();
-                _decrypt();
-              }),
-              onRequestToggle: (request) => setState(() {
-                _request = request;
-                _updateDecrypter();
-                _decrypt();
-              }),
-              onRemoveBoilerplateToggle: (removeBoilerplate) => setState(() {
-                _removeBoilerplate = removeBoilerplate;
-                _decrypt();
-              }),
+      appBar: AppBar(
+        title: const Text('Pandora JSON API Decrypter by hacker1024'),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(8),
+        children: [
+          _ModeSelector(
+            partners: _partners,
+            selectedPartner: _selectedPartner,
+            request: _request,
+            removeBoilerplate: _removeBoilerplate,
+            onPartnerSelection: (partner) => setState(() {
+              _selectedPartner = partner;
+              _updateDecrypter();
+              _decrypt();
+            }),
+            onRequestToggle: (request) => setState(() {
+              _request = request;
+              _updateDecrypter();
+              _decrypt();
+            }),
+            onRemoveBoilerplateToggle: (removeBoilerplate) => setState(() {
+              _removeBoilerplate = removeBoilerplate;
+              _decrypt();
+            }),
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _textFieldController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Encrypted data',
             ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _textFieldController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Encrypted data',
-              ),
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              onChanged: (value) {
-                setState(() {
-                  _encryptedData = value;
-                  _decrypt();
-                });
-              },
-            ),
-            const SizedBox(height: 8),
-            if (_output?.isNotEmpty == true)
-              SizedBox(
-                width: double.infinity,
-                child: ColoredBox(
-                  color: const Color(0xFFECECEC),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: SelectableText(
-                      _output!,
-                      style: const TextStyle(
-                        fontFeatures: [FontFeature.tabularFigures()],
-                        fontFamily: 'monospace',
-                        fontFamilyFallback: [
-                          'Monaco',
-                          'Courier New',
-                          'Noto Mono',
-                          'Roboto Mono',
-                        ],
-                      ),
-                    ),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            onChanged: (value) {
+              setState(() {
+                _encryptedData = value;
+                _decrypt();
+              });
+            },
+          ),
+          const SizedBox(height: 8),
+          if (_output?.isNotEmpty == true)
+            SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: SelectableText(
+                  _output!,
+                  style: const TextStyle(
+                    fontFeatures: [FontFeature.tabularFigures()],
+                    fontFamily: 'monospace',
+                    fontFamilyFallback: [
+                      'Monaco',
+                      'Courier New',
+                      'Noto Mono',
+                      'Roboto Mono',
+                    ],
                   ),
                 ),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -184,7 +182,6 @@ class _ModeSelector extends StatelessWidget {
   final ValueChanged<bool> onRemoveBoilerplateToggle;
 
   const _ModeSelector({
-    Key? key,
     required this.partners,
     required this.selectedPartner,
     required this.request,
@@ -192,7 +189,7 @@ class _ModeSelector extends StatelessWidget {
     required this.onPartnerSelection,
     required this.onRequestToggle,
     required this.onRemoveBoilerplateToggle,
-  }) : super(key: key);
+  });
 
   Widget _buildPartnerSelector(BuildContext context) {
     return InputDecorator(
