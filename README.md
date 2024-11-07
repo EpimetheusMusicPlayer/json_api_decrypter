@@ -1,7 +1,6 @@
 # Pandora JSON API Decrypter
 A tool to decrypt Pandora JSON API request and responses.
 
-Available online at https://crypto.epimetheus.tk.
-See the releases page for native apps.
+Available online via GitHub Pages (see the link on the repository page).
 
-![image](https://user-images.githubusercontent.com/20849728/124232964-ad3b9b80-db55-11eb-9290-c3dbd956a5d9.png)
+![image](https://github.com/user-attachments/assets/10f45d6e-7d0a-4785-bf7e-df3626368c41)
