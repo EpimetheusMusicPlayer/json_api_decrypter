@@ -11,7 +11,7 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.24.x
-      - run: flutter build web
+      - run: flutter build web --base-href /${{ github.event.repository.name }}/
       - id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
