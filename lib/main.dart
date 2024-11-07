@@ -13,6 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'JSON API Decrypter',
       home: DecrypterScreen(),
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
